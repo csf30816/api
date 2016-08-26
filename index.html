@@ -1,10 +1,31 @@
 <!DOCTYPE html>
 <html>
+
     <head>
         <title>Scratch API</title>
         <script href="./scratchapi.js"></script>
     </head>
+
     <body>
-        
+        <script>
+            var Scratch = require('scratchapi');
+            Scratch.UserSession.load(function(err, user) {
+                if (err) return console.error(err);
+                user.setBackpack([{
+                            type: 'script',
+                            name: '',
+                            scripts: [
+                                [
+                                    ['say:', 'Cheers!']
+                                ]
+                            ]
+                        }
+                    ], function(err, res) {
+                        if (err) return console.error(err);
+                        console.log('Backpack set');
+                    });
+            });
+        </script>
     </body>
+
 </html>
