@@ -1,4 +1,3 @@
-var require = (function () {
     var cache = {};
     function loadScript(url) {
         var xhr = new XMLHttpRequest(),
@@ -24,4 +23,3 @@ var require = (function () {
     require.cache = cache;
     require.resolve = resolve;
     return require;
-}());
