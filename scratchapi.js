@@ -21,9 +21,6 @@
         }
         return cache[url];
     }
-    require.cache = cache;
-    require.resolve = resolve;
-    return require;
 //Require end
 
 var https = require('https');
