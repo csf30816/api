@@ -3,16 +3,32 @@
 
     <head>
         <title>Scratch API</title>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
         <script href="./scratchapi.js"></script>
     </head>
 
     <body>
-        <form action="javascript:post" method="post">
-            <input type="text" name="content">
+        <form action="javascript:post()" method="post">
+            <input type="text" name="content" id="c">
             <input type="hidden" name="parent_id">
             <input type="hidden" name="commentee_id">
             <input type="submit">
         </form>
     </body>
+    
+    <script>
+        function post() {
+				$.ajax({
+					type: "POST",
+					url: "scratch.mit.edu/site-api/comments/user/csf30816/add/",
+					data: {
+						content: document.getElementById("c").value,
+						parent_id: '',
+						commentee_id: ''
+					}
+				}
+					  );
+			}
+    </script>
 
 </html>
