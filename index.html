@@ -17,18 +17,62 @@
     </body>
     
     <script>
-        function post() {
-				$.ajax({
-					type: "POST",
-					url: "https://scratch.mit.edu/site-api/comments/user/csf30816/add/",
-					data: {
-						content: document.getElementById("c").value,
-						parent_id: '',
-						commentee_id: ''
-					}
-				}
-					  );
-			}
+        var mouse_x = 0;
+var mouse_y = 0;
+var mouse_left = false;
+var mouse_right = false;
+if (document.addEventListener != undefined) document.addEventListener('mousemove', mouseMove, true);
+else if (document.layers) document.captureEvents(Event.MOUSEDOWN | Event.MOUSEMOVE | Event.MOUSEUP);
+document.onmousemove = mouseMove;
+document.oncontextmenu = RightMouseDown;
+document.onmousedown = mouseDown;
+document.onmouseup = mouseUp;
+
+function mouseMove(a) {
+    mouse_x = document.all ? event.clientX + document.body.scrollLeft : document.layers ? a.x + window.pageXOffset : a.clientX + window.pageXOffset;
+    mouse_y = document.all ? event.clientY + document.body.scrollTop : document.layers ? a.y + window.pageYOffset : a.clientY + window.pageYOffset
+}
+
+function RightMouseDown() {
+    mouse_right = true;
+    return false
+}
+
+function init(a, w) {
+    var b = document.createElement("DIV");
+    b.id = "contextmenu";
+    if (!w) var w = 120;
+    b.style.width = w + "px";
+    var c = '<div style="position:relative;left:10px;top:-4px;">';
+    c += a;
+    c += ' <a href="http://lablogic.net/scripts/contextmenu/right-click-menu.php" target="_top" title="javascript contextmenu" alt="Free javascript menu"><font color="#565656" size="-2">Get it...</font></a>';
+    c += '</div>';
+    b.innerHTML = c;
+    b.style.position = "absolute";
+    b.style.left = "0px";
+    b.style.top = "0px";
+    b.style.visibility = "hidden";
+    b.style.overflow = "hidden";
+    b.style.padding = "4px";
+    b.style.backgroundColor = "#ffffff";
+    b.style.border = "1px solid #6a6868";
+    document.body.appendChild(b);
+    delete b
+}
+
+function mouseUp(e) {
+    if (e.which == 1) document.getElementById("contextmenu").style.visibility = "hidden";
+    else if (e.which == 3) mouse_right = false
+}
+
+function mouseDown(e) {
+    if (e.which == 3) {
+        mouse_right = true;
+        document.getElementById("contextmenu").style.left = mouse_x + "px";
+        document.getElementById("contextmenu").style.top = mouse_y + "px";
+        document.getElementById("contextmenu").style.visibility = "visible"
+    }
+}
     </script>
 
 </html>
